@@ -8,9 +8,11 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 
-class AppViewController : UIViewController {
+
+class AppViewController : UIViewController, NSFetchedResultsControllerDelegate {
     
     var seconds = 60
     var timer_t = Timer()
@@ -18,6 +20,7 @@ class AppViewController : UIViewController {
     @IBOutlet weak var countDownLabel: UILabel!
     
     @IBOutlet weak var timer: UILabel!
+    @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var guessWord: UILabel!
     
     var count = 60
@@ -27,7 +30,11 @@ class AppViewController : UIViewController {
     }
     
     
-    func configureView(){ // RANDOM WORD GENERATED FROM URL
+    func configureView(){
+        
+
+        
+        // RANDOM WORD GENERATED FROM URL
         if let label = self.guessWord{
             let myURLString = "http://randomword.setgetgo.com/get.php"
             guard let myURL = URL(string: myURLString) else {
@@ -56,6 +63,8 @@ class AppViewController : UIViewController {
     
     @IBAction func start(_ sender: Any) {
             timer_t = Timer.scheduledTimer(timeInterval: 1,target: self, selector: #selector(AppViewController.counter), userInfo: nil, repeats: true)
+        
+        
     }
     
     func counter(){

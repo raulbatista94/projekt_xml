@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+var position : Int = 0
+
 class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate, SaveTeamDelegate {
 
 

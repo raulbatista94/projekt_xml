@@ -46,8 +46,8 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iP1-Br-pI3">
-                                <rect key="frame" x="166" y="106" width="48" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iP1-Br-pI3">
+                                <rect key="frame" x="16" y="106" width="339" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -251,6 +251,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="guessWord" destination="ukp-c6-XEJ" id="42a-qq-Zdj"/>
+                        <outlet property="startButton" destination="Sbu-t8-AqV" id="8oe-Jb-oco"/>
                         <outlet property="timer" destination="kBX-UY-QRy" id="Lk1-cV-SLA"/>
                     </connections>
                 </viewController>
@@ -276,7 +277,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fji-MZ-MG4">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fji-MZ-MG4">
                                 <rect key="frame" x="45" y="145" width="59" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Kdz-hg-Cv4"/>
@@ -290,6 +291,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="vDp-fd-c5T" firstAttribute="top" secondItem="9la-x2-RD5" secondAttribute="bottom" constant="110" id="5YP-lQ-EfI"/>
+                            <constraint firstItem="fji-MZ-MG4" firstAttribute="leading" secondItem="qyh-1d-h9X" secondAttribute="leadingMargin" constant="29" id="8oB-tT-ktr"/>
                             <constraint firstItem="vDp-fd-c5T" firstAttribute="leading" secondItem="qyh-1d-h9X" secondAttribute="leadingMargin" constant="20" id="IWo-3q-Qle"/>
                             <constraint firstItem="fji-MZ-MG4" firstAttribute="top" secondItem="9la-x2-RD5" secondAttribute="bottom" constant="80" id="aCX-9Q-Pfd"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vDp-fd-c5T" secondAttribute="trailing" constant="20" id="ufO-Pw-IlI"/>
