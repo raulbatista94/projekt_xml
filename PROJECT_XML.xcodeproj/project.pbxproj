@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE27887D1E927462009DA1D6 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE27887C1E927462009DA1D6 /* AppViewController.swift */; };
 		DE9E36891E923BD300201FCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E36881E923BD300201FCF /* AppDelegate.swift */; };
 		DE9E368C1E923BD300201FCF /* PROJECT_XML.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE9E368A1E923BD300201FCF /* PROJECT_XML.xcdatamodeld */; };
 		DE9E368E1E923BD300201FCF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E368D1E923BD300201FCF /* MasterViewController.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE27887C1E927462009DA1D6 /* AppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		DE9E36851E923BD300201FCF /* PROJECT_XML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PROJECT_XML.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9E36881E923BD300201FCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE9E368B1E923BD300201FCF /* PROJECT_XML.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PROJECT_XML.xcdatamodel; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				DE9E36881E923BD300201FCF /* AppDelegate.swift */,
 				DE9E368D1E923BD300201FCF /* MasterViewController.swift */,
 				DE9E368F1E923BD300201FCF /* DetailViewController.swift */,
+				DE27887C1E927462009DA1D6 /* AppViewController.swift */,
 				DE9E36BB1E923CD500201FCF /* NewTeamViewController.swift */,
 				DE9E36911E923BD300201FCF /* Main.storyboard */,
 				DE9E36941E923BD300201FCF /* Assets.xcassets */,
@@ -268,6 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE27887D1E927462009DA1D6 /* AppViewController.swift in Sources */,
 				DE9E36891E923BD300201FCF /* AppDelegate.swift in Sources */,
 				DE9E368C1E923BD300201FCF /* PROJECT_XML.xcdatamodeld in Sources */,
 				DE9E36BC1E923CD500201FCF /* NewTeamViewController.swift in Sources */,
@@ -517,6 +521,7 @@
 				DE9E36B41E923BD300201FCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DE9E36B51E923BD300201FCF /* Build configuration list for PBXNativeTarget "PROJECT_XMLTests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +530,7 @@
 				DE9E36B71E923BD300201FCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DE9E36B81E923BD300201FCF /* Build configuration list for PBXNativeTarget "PROJECT_XMLUITests" */ = {
 			isa = XCConfigurationList;
@@ -533,6 +539,7 @@
 				DE9E36BA1E923BD300201FCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

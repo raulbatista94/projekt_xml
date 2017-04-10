@@ -11,6 +11,8 @@ import CoreData
 
 class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate, SaveTeamDelegate {
 
+
+
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
 
@@ -38,7 +40,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         // Dispose of any resources that can be recreated.
     }
 
-    func saveTeam(name: String, score: Int) {
+    func saveTeam(name: String) {
         
         let context = self.fetchedResultsController.managedObjectContext
         let newTeam = Team(context : context)
@@ -115,7 +117,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     func configureCell(_ cell: UITableViewCell, withTeam team: Team) {
-        cell.textLabel!.text = team.name
+        cell.textLabel!.text = team.name! + " Score: " + String(team.score)
     }
 
     // MARK: - Fetched results controller
