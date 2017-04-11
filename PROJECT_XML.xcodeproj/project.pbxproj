@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DE27887D1E927462009DA1D6 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE27887C1E927462009DA1D6 /* AppViewController.swift */; };
+		DE841EB81E9CFA520086D763 /* ActivitySelectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE841EB71E9CFA520086D763 /* ActivitySelectorController.swift */; };
 		DE9E36891E923BD300201FCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E36881E923BD300201FCF /* AppDelegate.swift */; };
 		DE9E368C1E923BD300201FCF /* PROJECT_XML.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE9E368A1E923BD300201FCF /* PROJECT_XML.xcdatamodeld */; };
 		DE9E368E1E923BD300201FCF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E368D1E923BD300201FCF /* MasterViewController.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		DE27887C1E927462009DA1D6 /* AppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
+		DE841EB71E9CFA520086D763 /* ActivitySelectorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitySelectorController.swift; sourceTree = "<group>"; };
 		DE9E36851E923BD300201FCF /* PROJECT_XML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PROJECT_XML.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9E36881E923BD300201FCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE9E368B1E923BD300201FCF /* PROJECT_XML.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PROJECT_XML.xcdatamodel; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				DE9E368D1E923BD300201FCF /* MasterViewController.swift */,
 				DE9E368F1E923BD300201FCF /* DetailViewController.swift */,
 				DE27887C1E927462009DA1D6 /* AppViewController.swift */,
+				DE841EB71E9CFA520086D763 /* ActivitySelectorController.swift */,
 				DE9E36BB1E923CD500201FCF /* NewTeamViewController.swift */,
 				DE9E36911E923BD300201FCF /* Main.storyboard */,
 				DE9E36941E923BD300201FCF /* Assets.xcassets */,
@@ -271,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE841EB81E9CFA520086D763 /* ActivitySelectorController.swift in Sources */,
 				DE27887D1E927462009DA1D6 /* AppViewController.swift in Sources */,
 				DE9E36891E923BD300201FCF /* AppDelegate.swift in Sources */,
 				DE9E368C1E923BD300201FCF /* PROJECT_XML.xcdatamodeld in Sources */,
