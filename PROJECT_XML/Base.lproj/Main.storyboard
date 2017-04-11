@@ -180,6 +180,7 @@
         <!--Title-->
         <scene sceneID="Ym7-H5-Dbp">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d9a-hM-v5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="IEx-o5-pmf" customClass="AppViewController" customModule="PROJECT_XML" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ITx-v6-MVw"/>
@@ -203,7 +204,7 @@
                                     <action selector="showWord:" destination="IEx-o5-pmf" eventType="touchUpInside" id="Shs-Hb-n0a"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukp-c6-XEJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="guessWord" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukp-c6-XEJ">
                                 <rect key="frame" x="129" y="289" width="116" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -233,6 +234,40 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Activity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCO-5E-Tzs">
+                                <rect key="frame" x="129" y="100" width="116" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJ2-VO-BSf">
+                                <rect key="frame" x="42" y="261" width="46" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                                <state key="normal" title="3"/>
+                                <connections>
+                                    <action selector="points3:" destination="IEx-o5-pmf" eventType="touchUpInside" id="K7q-dB-XiR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SV7-hb-qt8">
+                                <rect key="frame" x="164" y="261" width="46" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                                <state key="normal" title="4"/>
+                                <connections>
+                                    <action selector="points4:" destination="IEx-o5-pmf" eventType="touchUpInside" id="pyL-p0-xNE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6k-st-BV2">
+                                <rect key="frame" x="281" y="261" width="46" height="86"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="80"/>
+                                <state key="normal" title="5"/>
+                                <connections>
+                                    <action selector="points5:" destination="IEx-o5-pmf" eventType="touchUpInside" id="oY6-gQ-5DY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -250,12 +285,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activity" destination="lCO-5E-Tzs" id="Ncr-WR-Bfs"/>
                         <outlet property="guessWord" destination="ukp-c6-XEJ" id="42a-qq-Zdj"/>
-                        <outlet property="startButton" destination="Sbu-t8-AqV" id="8oe-Jb-oco"/>
+                        <outlet property="points3Button" destination="eJ2-VO-BSf" id="LZ7-Fv-ddT"/>
+                        <outlet property="points4Button" destination="SV7-hb-qt8" id="9KF-BX-V2E"/>
+                        <outlet property="points5Button" destination="Y6k-st-BV2" id="QXH-fg-qMh"/>
                         <outlet property="timer" destination="kBX-UY-QRy" id="Lk1-cV-SLA"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d9a-hM-v5W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2733.5999999999999" y="127.28635682158921"/>
         </scene>
