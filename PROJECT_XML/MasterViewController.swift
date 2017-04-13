@@ -49,7 +49,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
              
         // If appropriate, configure the new managed object.
         newTeam.name = name
-        newTeam.score = 0
+        //newTeam.score = 0
+        newTeam.rounds = 0
 
         // Save the context.
         do {
@@ -66,8 +67,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-            let team = self.fetchedResultsController.object(at: indexPath)
+             if let indexPath = self.tableView.indexPathForSelectedRow {
+                let team = self.fetchedResultsController.object(at: indexPath)
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.team = team
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
@@ -119,7 +120,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     func configureCell(_ cell: UITableViewCell, withTeam team: Team) {
-        cell.textLabel!.text = team.name! + " Score: " + String(team.score)
+        cell.textLabel!.text = team.name! + " Round: " + String(team.rounds)
     }
 
     // MARK: - Fetched results controller
@@ -200,6 +201,5 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
          self.tableView.reloadData()
      }
      */
-
 }
 

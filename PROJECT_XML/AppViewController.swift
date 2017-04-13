@@ -9,10 +9,15 @@
 import Foundation
 import UIKit
 import CoreData
+//import AudioToolbox
+//import AVFoundation
 
 
 
-class AppViewController : UIViewController {
+
+
+
+class AppViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     
     var seconds = 60
@@ -24,12 +29,14 @@ class AppViewController : UIViewController {
     
     @IBOutlet weak var guessWord: UILabel!
     
+   // var systemSoundID: SystemSoundID = 0
 
     
     
     
     @IBAction func backPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
+        
     }
     
     
@@ -69,7 +76,10 @@ class AppViewController : UIViewController {
         }
         
         if (seconds == 0) {
+            //systemSoundID = 1016
             timer_t.invalidate()
+            //AudioServicesPlaySystemSound(systemSoundID)
+            //AudioServicesPlaySystemSound(1521)
         }
     }
 
@@ -78,6 +88,7 @@ class AppViewController : UIViewController {
     
     @IBAction func stop(_ sender: Any) {
         timer_t.invalidate()
+        //systemSoundID = 0
     }
         
     @IBAction func hideWord(_ sender: Any) {
@@ -88,10 +99,75 @@ class AppViewController : UIViewController {
 
     @IBAction func showWord(_ sender: Any) {
         self.guessWord.isHidden = false
+        
+    }
+    
+    @IBAction func correct(_ sender: Any) {
+        func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        let controller = (segue.destination as! UINavigationController).topViewController as! MasterViewController
+        controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+        controller.navigationItem.leftItemsSupplementBackButton = true
+        
+        }
+    }
+    
+    @IBAction func incorrect(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     
+    @IBOutlet weak var photoButton: UIButton!
+    @IBAction func takePhoto(_ sender: Any) { //Opning camera or saved images if the activity is draw
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            self.present(imagePicker, animated: true, completion: nil)
+            
+        }else{
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary){
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+                imagePicker.allowsEditing = true
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            
+        }
+        
+        
+    
+    }
+    
+    
+    @IBOutlet weak var cameraButton: UIButton!
+    @IBAction func cameraButtonPressed(_ sender: Any) {
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     override func viewDidLoad() {
+        if actual_activity == "Panthomime"{
+            cameraButton.isHidden = false
+            photoButton.isHidden = true
+            
+        }else{
+            if actual_activity == "Draw"{
+            photoButton.isHidden = false
+            cameraButton.isHidden = true
+            }else{
+                if actual_activity == "Describe"{
+                    photoButton.isHidden = true
+                    cameraButton.isHidden = true
+                }
+            }
+        }
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
@@ -103,12 +179,6 @@ class AppViewController : UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    var team: Team? {
-        didSet {
-            // Update the view.
-            self.configureView()
-        }
-    }
 
     
 }
