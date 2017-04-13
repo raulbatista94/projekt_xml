@@ -42,15 +42,15 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         // Dispose of any resources that can be recreated.
     }
 
-    func saveTeam(name: String) {
+    func saveTeam(name: String, score : Int16, rounds : Int16) {
         
         let context = self.fetchedResultsController.managedObjectContext
         let newTeam = Team(context : context)
              
         // If appropriate, configure the new managed object.
         newTeam.name = name
-        //newTeam.score = 0
-        newTeam.rounds = 0
+        newTeam.score = score
+        newTeam.rounds = rounds
 
         // Save the context.
         do {
