@@ -47,6 +47,9 @@ var count = 10
         
     @IBOutlet weak var showButton: UIButton!
     
+        var context : NSManagedObjectContext?
+  
+
     
     func configureView() {
         
@@ -262,18 +265,34 @@ var count = 10
         
         
         @IBAction func correct(_ sender: Any) {
+            if let context = self.context{
             team?.score += points
             self.team?.setValue(team?.score, forKey: "score")
             self.team?.setValue(team?.rounds, forKey: "rounds")
-            self.team?.willSave()
             dismiss(animated: true, completion: nil)
-            
+                do {
+                    try context.save()
+                } catch {
+                    print("Could not be saved")
+                }
+            }
         }
         
 
         @IBAction func incorrect(_ sender: Any) {
+            if let context = self.context{
+                self.team?.setValue(team?.rounds, forKey: "rounds")
+                do {
+                    try context.save()
+                }catch {
+                    print("Could not be saved")
+                }
+                }
             dismiss(animated: true, completion: nil)
-        }
+            }
+            
+        
+
         
         
         
