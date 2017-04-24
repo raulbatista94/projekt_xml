@@ -8,13 +8,18 @@
 
 import UIKit
 import Foundation
+import CoreData
+import AVFoundation
+import MobileCoreServices
 
 var actual_activity : String = ""
 var points : Int = 0
 var seconds = 60
 var timer_t = Timer()
 var count = 10
-    class DetailViewController: UIViewController {
+
+
+    class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
@@ -37,16 +42,18 @@ var count = 10
     @IBOutlet weak var startButton: UIButton!
         
     @IBOutlet weak var stopButton: UIButton!
-    
+
+    @IBOutlet weak var hideButton: UIButton!
+        
+    @IBOutlet weak var showButton: UIButton!
     
     
     func configureView() {
+        
+        
         if let team = self.team {
-            /*if let label = self.detailDescriptionLabel {
-                label.text = "\(team.score)"
-            }*/
             if let label = self.TeamName{
-                label.text = "Team: " + team.name! + " Score: " + String(team.score)
+                label.text = "Team: " + team.name! + "     Score: " + String(team.score)
             }
         }
         if let label = self.randomActivity{ //RANDOM SELECTION OF ACTIVITY FROM VECTOR
@@ -75,10 +82,17 @@ var count = 10
         }
     
     }
+        @IBAction func cancelPress(_ sender: Any) {
+            dismiss(animated: true, completion: nil)
+        }
 
 //points and hiding previous labels
     @IBOutlet weak var points3Button: UIButton!
+        
     @IBAction func points3(_ sender: Any) {
+        
+        
+        
         points3Button.isHidden = true
         points4Button.isHidden = true
         points5Button.isHidden = true
@@ -87,6 +101,11 @@ var count = 10
         points = 3
         startButton.isHidden = false
         stopButton.isHidden = false
+        hideButton.isHidden = false
+        showButton.isHidden = false
+        
+        
+        
         if actual_activity == "Panthomime"{
             takeVideoButton.isHidden = false
             takePhotoButton.isHidden = true
@@ -108,17 +127,29 @@ var count = 10
         guessWord.isHidden = false
         timer.isHidden = false
     }
+        
+        
+        
+        
+        
 
     @IBOutlet weak var points4Button: UIButton!
+        
     @IBAction func points4(_ sender: Any) {
         points3Button.isHidden = true
         points4Button.isHidden = true
         points5Button.isHidden = true
         randomActivity.isHidden = true
         self.team?.rounds += 1
+        self.team?.setValue(team?.rounds, forKey: "rounds")
         points = 4
         startButton.isHidden = false
         stopButton.isHidden = false
+        hideButton.isHidden = false
+        showButton.isHidden = false
+        
+        
+        
         if actual_activity == "Panthomime"{
             takeVideoButton.isHidden = false
             takePhotoButton.isHidden = true
@@ -140,9 +171,16 @@ var count = 10
         guessWord.isHidden = false
         timer.isHidden = false
     }
+        
+        
+        
+        
     
     @IBOutlet weak var points5Button: UIButton!
+        
     @IBAction func points5(_ sender: Any) {
+        
+        
         points3Button.isHidden = true
         points4Button.isHidden = true
         points5Button.isHidden = true
@@ -151,6 +189,10 @@ var count = 10
         points = 5
         startButton.isHidden = false
         stopButton.isHidden = false
+        hideButton.isHidden = false
+        showButton.isHidden = false
+        
+        
         if actual_activity == "Panthomime"{
             takeVideoButton.isHidden = false
             takePhotoButton.isHidden = true
@@ -207,18 +249,101 @@ var count = 10
    //end of the timer part
    
         
+        
+        //FUNCTIONS
+        
+        @IBAction func hideWord(_ sender: Any) {
+            self.guessWord.isHidden = true
+        }
+        
+        @IBAction func showWord(_ sender: Any) {
+            self.guessWord.isHidden = false
+        }
+        
+        
         @IBAction func correct(_ sender: Any) {
             team?.score += points
-            
+            self.team?.setValue(team?.score, forKey: "score")
+            self.team?.setValue(team?.rounds, forKey: "rounds")
+            self.team?.willSave()
             dismiss(animated: true, completion: nil)
             
         }
         
+
         @IBAction func incorrect(_ sender: Any) {
             dismiss(animated: true, completion: nil)
         }
         
+        
+        
+        
+        
+        func noCamera(){//message pops up if the device has no cammera
+            let alertVC = UIAlertController(
+                title: "No Camera",
+                message: "Sorry, this device has no camera",
+                preferredStyle: .alert)
+            let okAction = UIAlertAction(
+                title: "OK",
+                style:.default,
+                handler: nil)
+            alertVC.addAction(okAction)
+            present(
+                alertVC,
+                animated: true,
+                completion: nil)
+        }
+        
+        
+        
+        @IBAction func takeVideo(_ sender: Any) {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.allowsEditing = true
+                imagePicker.cameraCaptureMode = .video
+                imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+                imagePicker.videoMaximumDuration = Double(seconds)
+                imagePicker.cameraCaptureMode = .photo
+                self.present(imagePicker, animated: true, completion: nil)
+                
+                
+            }else{
+                noCamera()
+                
+            }
+        }
 
+
+
+        
+
+
+        
+        
+        @IBAction func takePhoto(_ sender: Any) {
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
+                let imagePicker = UIImagePickerController()
+                imagePicker.delegate = self
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+                imagePicker.cameraCaptureMode = .photo
+                self.present(imagePicker, animated: true, completion: nil)
+                
+            }else{
+                if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary){
+                    let imagePicker = UIImagePickerController()
+                    imagePicker.delegate = self
+                    imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+                    imagePicker.allowsEditing = true
+                    self.present(imagePicker, animated: true, completion: nil)
+                }
+                
+            }
+
+            
+        }
         
         
     
@@ -233,6 +358,8 @@ var count = 10
         incorrectButton.isHidden = true
         timer.isHidden = true
         guessWord.isHidden = true
+        hideButton.isHidden = true
+        showButton.isHidden = true
         // Do any additional setup after loading the view, typically from a nib.
         
         self.configureView()
@@ -245,7 +372,7 @@ var count = 10
 
     var team: Team? {
         didSet {
-            // Update the view.
+            // Update the view
             self.configureView()
         }
     }

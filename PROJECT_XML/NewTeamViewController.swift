@@ -16,15 +16,20 @@ protocol SaveTeamDelegate {
 
 class NewTeamViewController: UIViewController, UINavigationControllerDelegate {
     var saveDelegate: SaveTeamDelegate?
-   
+    var score =  0
+    var rounds =  0
+    
+    
     
     @IBOutlet weak var TeamName: UITextField!
     
+    
     @IBAction func save(_ sender: Any) {
+        
         print("Ulozilo sa ")
         let name = self.TeamName.text ?? "No name entred"
-        var score = 0
-        var rounds = 0
+        var score = self.score
+        var rounds = self.rounds
         saveDelegate?.saveTeam(name: name, score: Int16(score), rounds : Int16(rounds))
         dismiss(animated: true, completion: nil)
     }

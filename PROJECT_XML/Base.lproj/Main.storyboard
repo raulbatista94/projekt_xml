@@ -73,13 +73,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iO-WT-aNq">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iO-WT-aNq">
                                 <rect key="frame" x="54" y="402" width="32" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Hide"/>
+                                <connections>
+                                    <action selector="hideWord:" destination="JEX-9P-axG" eventType="touchUpInside" id="nVE-r7-KYu"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWU-uh-kN5">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWU-uh-kN5">
                                 <rect key="frame" x="279" y="402" width="38" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Show"/>
+                                <connections>
+                                    <action selector="showWord:" destination="JEX-9P-axG" eventType="touchUpInside" id="juo-oP-Sui"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="guessWord" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukp-c6-XEJ">
                                 <rect key="frame" x="14" y="294" width="343" height="25"/>
@@ -115,6 +123,9 @@
                                 <rect key="frame" x="41" y="586" width="285" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Take a Photo"/>
+                                <connections>
+                                    <action selector="takePhoto:" destination="JEX-9P-axG" eventType="touchUpInside" id="nTS-Be-CY6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePc-9E-amL">
                                 <rect key="frame" x="40" y="492" width="46" height="30"/>
@@ -138,6 +149,9 @@
                                 <rect key="frame" x="41" y="586" width="285" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Take a Video"/>
+                                <connections>
+                                    <action selector="takeVideo:" destination="JEX-9P-axG" eventType="touchUpInside" id="B6t-r2-bc6"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iP1-Br-pI3">
                                 <rect key="frame" x="18" y="72" width="339" height="21"/>
@@ -148,23 +162,32 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="7iO-WT-aNq" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="38" id="Rqf-dM-jl8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LWU-uh-kN5" secondAttribute="trailing" constant="42" id="ls5-TM-ZjW"/>
-                        </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Select points" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" title="Activity" id="peb-ql-6Jw">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="JNi-nR-sxe"/>
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" width="20" style="plain" systemItem="cancel" id="RNB-sH-8kr">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cancelPress:" destination="JEX-9P-axG" id="U9i-EL-Pj6"/>
+                            </connections>
+                        </barButtonItem>
+                        <connections>
+                            <outlet property="backBarButtonItem" destination="RNB-sH-8kr" id="tgy-ah-P7c"/>
+                        </connections>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="TeamName" destination="iP1-Br-pI3" id="0Oo-XW-wAN"/>
                         <outlet property="correctButton" destination="ePc-9E-amL" id="4am-hw-83p"/>
                         <outlet property="guessWord" destination="ukp-c6-XEJ" id="9dN-wj-EBf"/>
+                        <outlet property="hideButton" destination="7iO-WT-aNq" id="zK6-ij-Q8F"/>
                         <outlet property="incorrectButton" destination="seA-5n-7nl" id="Y0f-AY-1Hh"/>
                         <outlet property="points3Button" destination="eJ2-VO-BSf" id="K3d-1t-HpU"/>
                         <outlet property="points4Button" destination="SV7-hb-qt8" id="Hdh-jm-SrS"/>
                         <outlet property="points5Button" destination="Y6k-st-BV2" id="SRv-bd-RbX"/>
                         <outlet property="randomActivity" destination="lCO-5E-Tzs" id="7Ux-Uc-Ml7"/>
+                        <outlet property="showButton" destination="LWU-uh-kN5" id="weR-B1-jfp"/>
                         <outlet property="startButton" destination="Sbu-t8-AqV" id="0fl-7q-zLw"/>
                         <outlet property="stopButton" destination="C76-5h-D9j" id="uc7-PB-Vlv"/>
                         <outlet property="takePhotoButton" destination="085-Hh-ATn" id="xxW-Bi-Zzw"/>
@@ -202,11 +225,11 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Arm-wq-HPj">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -216,7 +239,7 @@
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <segue destination="vC3-pB-5Vb" kind="presentation" identifier="showDetail" id="6S0-TO-JiA"/>
+                                    <segue destination="vC3-pB-5Vb" kind="presentation" identifier="showDetail" modalTransitionStyle="partialCurl" id="6S0-TO-JiA"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -273,7 +296,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fji-MZ-MG4">
-                                <rect key="frame" x="45" y="145" width="59" height="21"/>
+                                <rect key="frame" x="45" y="145" width="70" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Kdz-hg-Cv4"/>
                                     <constraint firstAttribute="width" constant="59" id="ygC-UJ-vXa"/>

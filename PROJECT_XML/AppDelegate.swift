@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import MobileCoreServices
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
