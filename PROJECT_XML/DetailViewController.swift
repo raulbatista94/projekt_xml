@@ -11,6 +11,9 @@ import Foundation
 import CoreData
 import AVFoundation
 import MobileCoreServices
+import Photos
+
+
 
 var actual_activity : String = ""
 var points : Int = 0
@@ -19,7 +22,7 @@ var timer_t = Timer()
 var count = 10
 
 
-    class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate{
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
@@ -47,9 +50,14 @@ var count = 10
         
     @IBOutlet weak var showButton: UIButton!
     
-        var context : NSManagedObjectContext?
+    var context : NSManagedObjectContext?
+        
+    
+        
+    
   
-
+    
+   
     
     func configureView() {
         
@@ -271,7 +279,7 @@ var count = 10
         
         
         func youWin(){//message pops up when the team wins
-            var winTeam:String = (team?.name)!
+            let winTeam:String = (team?.name)!
             let alertVC = UIAlertController(
                 title: "Team \(winTeam) wins",
                 message: "Your team already won and cant obtain more points",
@@ -349,23 +357,76 @@ var count = 10
         
         
         @IBAction func takeVideo(_ sender: Any) {
+            
+            let cameraSession = AVCaptureSession()
+            
+            cameraSession.sessionPreset = AVCaptureSessionPresetMedium
+            
+            let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) as AVCaptureDevice
+            
+            do {
+                let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
+                
+                cameraSession.beginConfiguration() // 1
+                
+                if (cameraSession.canAddInput(deviceInput) == true) {
+                    cameraSession.addInput(deviceInput)
+                }
+                
+                let dataOutput = AVCaptureVideoDataOutput() // 2
+                
+                dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange as UInt32)] // 3
+                
+                dataOutput.alwaysDiscardsLateVideoFrames = true // 4
+                
+                if (cameraSession.canAddOutput(dataOutput) == true) {
+                    cameraSession.addOutput(dataOutput)
+                }
+                
+                cameraSession.commitConfiguration() //5
+                
+                let queue = DispatchQueue(label: "com.invasivecode.videoQueue") // 6
+                dataOutput.setSampleBufferDelegate(self, queue: queue)// 7
+                
+            }
+            catch let error as NSError {
+                NSLog("\(error), \(error.localizedDescription)")
+            }
+            
+            
+            /*var previewLayer: AVCaptureVideoPreviewLayer = {
+                let preview =  AVCaptureVideoPreviewLayer(session: self.cameraSession)
+                preview?.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
+                preview?.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+                preview.videoGravity = AVLayerVideoGravityResize
+                return preview
+            }()*/
+            
+            
+            /*
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
-                imagePicker.mediaTypes = [kUTTypeMovie as String]
-                imagePicker.sourceType = .camera
-                imagePicker.cameraCaptureMode = .video
-                imagePicker.allowsEditing = true
-                imagePicker.videoQuality = .typeMedium
+                imagePicker.mediaTypes = [(kUTTypeMovie as NSString) as String]
+                imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+                imagePicker.allowsEditing = false
+                imagePicker.showsCameraControls = true
                 //imagePicker.videoMaximumDuration = Double(seconds)
+                
                 self.present(imagePicker, animated: true, completion: nil)
                 
-                
+
+            
             }else{
                 noCamera()
-                
-            }
+            }*/
+            
         }
+        
+        
+        
+        
+        
         
         
         @IBAction func takePhoto(_ sender: Any) {
@@ -373,9 +434,12 @@ var count = 10
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
                 imagePicker.allowsEditing = true
+                imagePicker.mediaTypes = [kUTTypeImage as String]
                 imagePicker.sourceType = UIImagePickerControllerSourceType.camera
                 imagePicker.cameraCaptureMode = .photo
+                imagePicker.startVideoCapture()
                 self.present(imagePicker, animated: true, completion: nil)
+                
                 
             }else{
                 if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.photoLibrary){
@@ -385,13 +449,35 @@ var count = 10
                     imagePicker.allowsEditing = true
                     self.present(imagePicker, animated: true, completion: nil)
                 }
-                
             }
-
-            
         }
         
         
+
+        /*func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+            let mediaType:AnyObject? = info[UIImagePickerControllerMediaType] as AnyObject?
+            if let type:AnyObject = mediaType {
+                if type is String {
+                    let stringType = type as! String
+                    if stringType == kUTTypeMovie as! String {
+                        let urlOfVideo = info[UIImagePickerControllerMediaURL] as? NSURL
+                        let adresa : String = (urlOfVideo?.absoluteString)!
+                        if let url = urlOfVideo {
+                            UISaveVideoAtPathToSavedPhotosAlbum(adresa, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                        }
+                    } else {
+                        if stringType == kUTTypeImage as! String {
+                            let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+                            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                        }
+                    }
+                }
+            }*/
+
+  
+        
+        
+        //OLD SAVING METOD SAVING ONLY PHOTOS
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
             if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
                 UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
@@ -413,8 +499,20 @@ var count = 10
             }
         }
         
+        func videoPickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+            
+            if let pickedVideo = info[UIImagePickerControllerMediaURL] as? String {
+                UISaveVideoAtPathToSavedPhotosAlbum(pickedVideo, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+            }
+        }
         
-    
+        
+        
+        
+        
+       
+ 
+        
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -58,7 +58,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Activity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lCO-5E-Tzs">
-                                <rect key="frame" x="33" y="181" width="267" height="21"/>
+                                <rect key="frame" x="16" y="181" width="288" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -93,14 +93,6 @@
                                 <state key="normal" title="Start"/>
                                 <connections>
                                     <action selector="start:" destination="JEX-9P-axG" eventType="touchUpInside" id="DEY-fi-VCw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C76-5h-D9j">
-                                <rect key="frame" x="258" y="101" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Stop"/>
-                                <connections>
-                                    <action selector="stop:" destination="JEX-9P-axG" eventType="touchUpInside" id="ma6-qy-tZJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="60 Seconds" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBX-UY-QRy">
@@ -160,22 +152,19 @@
                                     <action selector="points3:" destination="JEX-9P-axG" eventType="touchUpInside" id="cEi-HV-jAE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C76-5h-D9j">
+                                <rect key="frame" x="258" y="101" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Stop"/>
+                                <connections>
+                                    <action selector="stop:" destination="JEX-9P-axG" eventType="touchUpInside" id="ma6-qy-tZJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Activity" id="peb-ql-6Jw">
-                        <barButtonItem key="backBarButtonItem" title="Cancel" id="JNi-nR-sxe"/>
-                        <barButtonItem key="leftBarButtonItem" enabled="NO" width="20" style="plain" systemItem="cancel" id="RNB-sH-8kr">
-                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="cancelPress:" destination="JEX-9P-axG" id="U9i-EL-Pj6"/>
-                            </connections>
-                        </barButtonItem>
-                        <connections>
-                            <outlet property="backBarButtonItem" destination="RNB-sH-8kr" id="tgy-ah-P7c"/>
-                        </connections>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Activity" id="peb-ql-6Jw"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="TeamName" destination="iP1-Br-pI3" id="0Oo-XW-wAN"/>
