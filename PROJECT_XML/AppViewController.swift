@@ -135,7 +135,6 @@ class AppViewController : UIViewController, UIImagePickerControllerDelegate, UIN
             
         }
         
-        
     
     }
     

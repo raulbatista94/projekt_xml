@@ -100,7 +100,9 @@ var count = 10
         points4Button.isHidden = true
         points5Button.isHidden = true
         randomActivity.isHidden = true
+        if (self.team?.score)! < 60 {
         self.team?.rounds += 1
+        }
         points = 3
         startButton.isHidden = false
         stopButton.isHidden = false
@@ -143,8 +145,9 @@ var count = 10
         points4Button.isHidden = true
         points5Button.isHidden = true
         randomActivity.isHidden = true
-        self.team?.rounds += 1
-        self.team?.setValue(team?.rounds, forKey: "rounds")
+        if (self.team?.score)! < 60 {
+            self.team?.rounds += 1
+        }
         points = 4
         startButton.isHidden = false
         stopButton.isHidden = false
@@ -188,7 +191,9 @@ var count = 10
         points4Button.isHidden = true
         points5Button.isHidden = true
         randomActivity.isHidden = true
-        self.team?.rounds += 1
+        if (self.team?.score)! < 60 {
+            self.team?.rounds += 1
+        }
         points = 5
         startButton.isHidden = false
         stopButton.isHidden = false
@@ -264,7 +269,27 @@ var count = 10
         }
         
         
+        
+        func youWin(){//message pops up when the team wins
+            var winTeam:String = (team?.name)!
+            let alertVC = UIAlertController(
+                title: "Team \(winTeam) wins",
+                message: "Your team already won and cant obtain more points",
+                preferredStyle: .alert)
+            let okAction = UIAlertAction(
+                title: "OK",
+                style:.default,
+                handler: nil)
+            alertVC.addAction(okAction)
+            present(
+                alertVC,
+                animated: true,
+                completion: nil)
+        }
+        
+        
         @IBAction func correct(_ sender: Any) {
+            if (team?.score)! < 60 {
             if let context = self.context{
             team?.score += points
             self.team?.setValue(team?.score, forKey: "score")
@@ -276,10 +301,14 @@ var count = 10
                     print("Could not be saved")
                 }
             }
+            }else{
+                youWin()
+            }
         }
         
 
         @IBAction func incorrect(_ sender: Any) {
+            if (team?.score)! < 60 {
             if let context = self.context{
                 self.team?.setValue(team?.rounds, forKey: "rounds")
                 do {
@@ -289,6 +318,9 @@ var count = 10
                 }
                 }
             dismiss(animated: true, completion: nil)
+            }else{
+                dismiss(animated: true, completion: nil)
+            }
             }
             
         
@@ -320,11 +352,12 @@ var count = 10
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
-                imagePicker.allowsEditing = true
+                imagePicker.mediaTypes = [kUTTypeMovie as String]
+                imagePicker.sourceType = .camera
                 imagePicker.cameraCaptureMode = .video
-                imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-                imagePicker.videoMaximumDuration = Double(seconds)
-                imagePicker.cameraCaptureMode = .photo
+                imagePicker.allowsEditing = true
+                imagePicker.videoQuality = .typeMedium
+                //imagePicker.videoMaximumDuration = Double(seconds)
                 self.present(imagePicker, animated: true, completion: nil)
                 
                 
@@ -333,12 +366,6 @@ var count = 10
                 
             }
         }
-
-
-
-        
-
-
         
         
         @IBAction func takePhoto(_ sender: Any) {
@@ -362,6 +389,28 @@ var count = 10
             }
 
             
+        }
+        
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+            if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+                UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                
+                dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+            if let error = error {
+                // we got back an error!
+                let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            } else {
+                let ac = UIAlertController(title: "Saved!", message: "Your image has been saved to your photo gallery.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            }
         }
         
         
