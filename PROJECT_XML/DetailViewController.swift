@@ -367,6 +367,15 @@ var count = 10
             }
         }
         
+        func videoPickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: NSDictionary!) {
+        let tempImage = info[UIImagePickerControllerMediaURL] as? NSURL
+        let pathString = tempImage?.relativePath
+        self.dismiss(animated: true, completion: nil)
+
+        UISaveVideoAtPathToSavedPhotosAlbum((pathString)!, self, nil, nil)
+
+    }
+        
         
         @IBAction func takePhoto(_ sender: Any) {
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
