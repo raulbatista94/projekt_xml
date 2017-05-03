@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DE27887D1E927462009DA1D6 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE27887C1E927462009DA1D6 /* AppViewController.swift */; };
+		DE99D9021EB21C5300722277 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE99D9011EB21C5300722277 /* MobileCoreServices.framework */; };
 		DE9E36891E923BD300201FCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E36881E923BD300201FCF /* AppDelegate.swift */; };
 		DE9E368C1E923BD300201FCF /* PROJECT_XML.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE9E368A1E923BD300201FCF /* PROJECT_XML.xcdatamodeld */; };
 		DE9E368E1E923BD300201FCF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9E368D1E923BD300201FCF /* MasterViewController.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		DE27887C1E927462009DA1D6 /* AppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
+		DE99D9011EB21C5300722277 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		DE9E36851E923BD300201FCF /* PROJECT_XML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PROJECT_XML.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE9E36881E923BD300201FCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE9E368B1E923BD300201FCF /* PROJECT_XML.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PROJECT_XML.xcdatamodel; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE99D9021EB21C5300722277 /* MobileCoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE99D9001EB21C5300722277 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DE99D9011EB21C5300722277 /* MobileCoreServices.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DE9E367C1E923BD300201FCF = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +100,7 @@
 				DE9E36A11E923BD300201FCF /* PROJECT_XMLTests */,
 				DE9E36AC1E923BD300201FCF /* PROJECT_XMLUITests */,
 				DE9E36861E923BD300201FCF /* Products */,
+				DE99D9001EB21C5300722277 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

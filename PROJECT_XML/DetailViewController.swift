@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import CoreData
 import AVFoundation
+import AVKit
 import MobileCoreServices
 import Photos
 
@@ -52,6 +53,8 @@ var count = 10
     
     var context : NSManagedObjectContext?
         
+    var video : Bool = false
+        
     
         
     
@@ -77,7 +80,7 @@ var count = 10
         }
         
         if let label = self.guessWord{
-            let myURLString = "http://randomword.setgetgo.com/get.php"
+            let myURLString = "https://dbouniverse.com/random.php"
             guard let myURL = URL(string: myURLString) else {
                 print("Error, \(myURLString) seems to be not valid")
                 return
@@ -236,7 +239,7 @@ var count = 10
    //Starting to work with timer part
 
         @IBAction func start(_ sender: Any) {
-            timer_t = Timer.scheduledTimer(timeInterval: 1,target: self, selector: #selector(AppViewController.counter), userInfo: nil, repeats: true)
+            timer_t = Timer.scheduledTimer(timeInterval: 1,target: self, selector: #selector(DetailViewController.counter), userInfo: nil, repeats: true)
             
             
         }
@@ -335,6 +338,22 @@ var count = 10
 
         
         
+        func wasSaved(){//message pops up if the device has no cammera
+            let alertVC = UIAlertController(
+                title: "Saved",
+                message: "Your video was saved!",
+                preferredStyle: .alert)
+            let okAction = UIAlertAction(
+                title: "OK",
+                style:.default,
+                handler: nil)
+            alertVC.addAction(okAction)
+            present(
+                alertVC,
+                animated: true,
+                completion: nil)
+        }
+        
         
         
         
@@ -357,53 +376,7 @@ var count = 10
         
         
         @IBAction func takeVideo(_ sender: Any) {
-            
-            let cameraSession = AVCaptureSession()
-            
-            cameraSession.sessionPreset = AVCaptureSessionPresetMedium
-            
-            let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo) as AVCaptureDevice
-            
-            do {
-                let deviceInput = try AVCaptureDeviceInput(device: captureDevice)
-                
-                cameraSession.beginConfiguration() // 1
-                
-                if (cameraSession.canAddInput(deviceInput) == true) {
-                    cameraSession.addInput(deviceInput)
-                }
-                
-                let dataOutput = AVCaptureVideoDataOutput() // 2
-                
-                dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange as UInt32)] // 3
-                
-                dataOutput.alwaysDiscardsLateVideoFrames = true // 4
-                
-                if (cameraSession.canAddOutput(dataOutput) == true) {
-                    cameraSession.addOutput(dataOutput)
-                }
-                
-                cameraSession.commitConfiguration() //5
-                
-                let queue = DispatchQueue(label: "com.invasivecode.videoQueue") // 6
-                dataOutput.setSampleBufferDelegate(self, queue: queue)// 7
-                
-            }
-            catch let error as NSError {
-                NSLog("\(error), \(error.localizedDescription)")
-            }
-            
-            
-            /*var previewLayer: AVCaptureVideoPreviewLayer = {
-                let preview =  AVCaptureVideoPreviewLayer(session: self.cameraSession)
-                preview?.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
-                preview?.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-                preview.videoGravity = AVLayerVideoGravityResize
-                return preview
-            }()*/
-            
-            
-            /*
+                video = true
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
@@ -419,7 +392,7 @@ var count = 10
             
             }else{
                 noCamera()
-            }*/
+            }
             
         }
         
@@ -430,6 +403,7 @@ var count = 10
         
         
         @IBAction func takePhoto(_ sender: Any) {
+                video = false
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
                 let imagePicker = UIImagePickerController()
                 imagePicker.delegate = self
@@ -454,38 +428,45 @@ var count = 10
         
         
 
-        /*func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-            let mediaType:AnyObject? = info[UIImagePickerControllerMediaType] as AnyObject?
-            if let type:AnyObject = mediaType {
-                if type is String {
-                    let stringType = type as! String
-                    if stringType == kUTTypeMovie as! String {
-                        let urlOfVideo = info[UIImagePickerControllerMediaURL] as? NSURL
-                        let adresa : String = (urlOfVideo?.absoluteString)!
-                        if let url = urlOfVideo {
-                            UISaveVideoAtPathToSavedPhotosAlbum(adresa, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-                        }
-                    } else {
-                        if stringType == kUTTypeImage as! String {
-                            let image = info[UIImagePickerControllerOriginalImage] as? UIImage
-                            UIImageWriteToSavedPhotosAlbum(image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        
+// saving video and photos
+        
+        
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+            if video == true {
+            
+            if let pickedImage = info[UIImagePickerControllerMediaURL] as? NSURL{
+                PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: pickedImage as URL)}) { // SAVE VIDEO
+                    saved, error in
+                    if saved {
+                        let alertController = UIAlertController(title: "Yur video was saved!", message: nil, preferredStyle: .alert)
+                        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        alertController.addAction(defaultAction)
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true, completion: nil)
+                            self.wasSaved()
+                                }
+                        
+                            }
                         }
                     }
-                }
-            }*/
-
-  
-        
-        
-        //OLD SAVING METOD SAVING ONLY PHOTOS
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-            if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
-                UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-                
-                dismiss(animated: true, completion: nil)
+            }else {
+                if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+                    UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                    
+                    dismiss(animated: true, completion: nil)
             }
+            
+            
+                }
         }
         
+        
+        
+        
+        
+    
         func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
             if let error = error {
                 // we got back an error!
@@ -498,19 +479,7 @@ var count = 10
                 present(ac, animated: true)
             }
         }
-        
-        func videoPickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-            
-            if let pickedVideo = info[UIImagePickerControllerMediaURL] as? String {
-                UISaveVideoAtPathToSavedPhotosAlbum(pickedVideo, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-            }
-        }
-        
-        
-        
-        
-        
-       
+
  
         
 
