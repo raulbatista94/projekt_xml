@@ -56,7 +56,7 @@ var count = 10
     var video : Bool = false
         
     
-        
+    
     
   
     
@@ -71,7 +71,7 @@ var count = 10
             }
         }
         if let label = self.randomActivity{ //RANDOM SELECTION OF ACTIVITY FROM VECTOR
-            let array = ["Draw", "Describe", "Panthomime"]
+            let array = ["Draw", "Describe", "Pantomime"]
             let randomIndex = Int(arc4random_uniform(UInt32(array.count)))
             actual_activity = (array[randomIndex])
             label.text = actual_activity
@@ -122,7 +122,7 @@ var count = 10
         
         
         
-        if actual_activity == "Panthomime"{
+        if actual_activity == "Pantomime"{
             takeVideoButton.isHidden = false
             takePhotoButton.isHidden = true
             
@@ -167,7 +167,7 @@ var count = 10
         
         
         
-        if actual_activity == "Panthomime"{
+        if actual_activity == "Pantomime"{
             takeVideoButton.isHidden = false
             takePhotoButton.isHidden = true
             
@@ -212,7 +212,7 @@ var count = 10
         showButton.isHidden = false
         
         
-        if actual_activity == "Panthomime"{
+        if actual_activity == "Pantomime"{
             takeVideoButton.isHidden = false
             takePhotoButton.isHidden = true
             
@@ -239,6 +239,8 @@ var count = 10
    //Starting to work with timer part
 
         @IBAction func start(_ sender: Any) {
+            startButton.isHidden = true
+            stopButton.isHidden = false
             timer_t = Timer.scheduledTimer(timeInterval: 1,target: self, selector: #selector(DetailViewController.counter), userInfo: nil, repeats: true)
             
             
@@ -251,16 +253,17 @@ var count = 10
             }
             
             if (seconds == 0) {
-                //systemSoundID = 1016
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 timer_t.invalidate()
-                //AudioServicesPlaySystemSound(systemSoundID)
-                //AudioServicesPlaySystemSound(1521)
+              
             }
 
         }
         
 
         @IBAction func stop(_ sender: Any) {
+            stopButton.isHidden = true
+            startButton.isHidden = false
             timer_t.invalidate()
         }
         
@@ -300,6 +303,7 @@ var count = 10
         
         
         @IBAction func correct(_ sender: Any) {
+            AudioServicesDisposeSystemSoundID(SystemSoundID(kSystemSoundID_Vibrate))
             if (team?.score)! < 60 {
             if let context = self.context{
             team?.score += points
@@ -319,6 +323,7 @@ var count = 10
         
 
         @IBAction func incorrect(_ sender: Any) {
+            AudioServicesDisposeSystemSoundID(SystemSoundID(kSystemSoundID_Vibrate))
             if (team?.score)! < 60 {
             if let context = self.context{
                 self.team?.setValue(team?.rounds, forKey: "rounds")
@@ -338,7 +343,7 @@ var count = 10
 
         
         
-        func wasSaved(){//message pops up if the device has no cammera
+        func wasSaved(){//message pops up if the video was correctly saved
             let alertVC = UIAlertController(
                 title: "Saved",
                 message: "Your video was saved!",
@@ -373,8 +378,10 @@ var count = 10
                 completion: nil)
         }
         
+    
         
-        
+
+        //TAKING VIDEOS AND PHOTOS
         @IBAction func takeVideo(_ sender: Any) {
                 video = true
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera){
@@ -384,7 +391,7 @@ var count = 10
                 imagePicker.sourceType = UIImagePickerControllerSourceType.camera
                 imagePicker.allowsEditing = false
                 imagePicker.showsCameraControls = true
-                //imagePicker.videoMaximumDuration = Double(seconds)
+                imagePicker.videoMaximumDuration = Double(seconds)
                 
                 self.present(imagePicker, animated: true, completion: nil)
                 
@@ -436,7 +443,7 @@ var count = 10
         }
         
         
-
+      //END OF TAKING PART
         
 // saving video and photos
         
@@ -462,7 +469,7 @@ var count = 10
                     }
             }else {
                 if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
-                    UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+                    UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil) // SAVE PHOTO
                     
                     dismiss(animated: true, completion: nil)
             }
@@ -470,10 +477,6 @@ var count = 10
             
                 }
         }
-        
-        
-        
-        
         
     
         func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -489,10 +492,11 @@ var count = 10
             }
         }
 
- 
+ // end of the part of saving videos and photos
         
 
     override func viewDidLoad() {
+        self.navigationItem.backBarButtonItem = nil
         super.viewDidLoad()
         startButton.isHidden = true
         stopButton.isHidden = true
@@ -507,6 +511,14 @@ var count = 10
         // Do any additional setup after loading the view, typically from a nib.
         
         self.configureView()
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        UIImage(named: "background")?.draw(in: self.view.bounds)
+        
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        
+        UIGraphicsEndImageContext()
+        
+        self.view.backgroundColor = UIColor(patternImage: image)
     }
     
     override func didReceiveMemoryWarning() {
