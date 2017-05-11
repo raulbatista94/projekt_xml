@@ -253,7 +253,6 @@ var count = 10
             }
             
             if (seconds == 0) {
-                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 timer_t.invalidate()
               
             }
@@ -303,8 +302,10 @@ var count = 10
         
         
         @IBAction func correct(_ sender: Any) {
-            AudioServicesDisposeSystemSoundID(SystemSoundID(kSystemSoundID_Vibrate))
+            timer_t.invalidate()
+            seconds = 60
             if (team?.score)! < 60 {
+                timer_t.invalidate()
             if let context = self.context{
             team?.score += points
             self.team?.setValue(team?.score, forKey: "score")
@@ -323,8 +324,10 @@ var count = 10
         
 
         @IBAction func incorrect(_ sender: Any) {
-            AudioServicesDisposeSystemSoundID(SystemSoundID(kSystemSoundID_Vibrate))
+            timer_t.invalidate()
+            seconds = 60
             if (team?.score)! < 60 {
+                
             if let context = self.context{
                 self.team?.setValue(team?.rounds, forKey: "rounds")
                 do {
