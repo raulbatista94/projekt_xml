@@ -11,7 +11,7 @@ import UIKit
 import MobileCoreServices
 
 protocol SaveTeamDelegate {
-    func saveTeam(name : String, score : Int16, rounds : Int16)
+    func saveTeam(name : String, score : Int16, rounds : Int16, timeStamp : NSDate)
 }
 
 class NewTeamViewController: UIViewController, UINavigationControllerDelegate {
@@ -30,7 +30,8 @@ class NewTeamViewController: UIViewController, UINavigationControllerDelegate {
         let name = self.TeamName.text ?? "No name entred"
         var score = self.score
         var rounds = self.rounds
-        saveDelegate?.saveTeam(name: name, score: Int16(score), rounds : Int16(rounds))
+        var timeStamp = NSDate()
+        saveDelegate?.saveTeam(name: name, score: Int16(score), rounds : Int16(rounds), timeStamp: timeStamp)
         dismiss(animated: true, completion: nil)
     }
     

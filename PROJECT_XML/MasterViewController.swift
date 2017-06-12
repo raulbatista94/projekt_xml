@@ -43,7 +43,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         // Dispose of any resources that can be recreated.
     }
 
-    func saveTeam(name: String, score : Int16, rounds : Int16) {
+    func saveTeam(name: String, score : Int16, rounds : Int16, timeStamp : NSDate) {
         
         let context = self.fetchedResultsController.managedObjectContext
         let newTeam = Team(context : context)
@@ -52,6 +52,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         newTeam.name = name
         newTeam.score = score
         newTeam.rounds = rounds
+        newTeam.timestamp = timeStamp
 
         // Save the context.
         do {
@@ -97,9 +98,11 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+       
         let team = self.fetchedResultsController.object(at: indexPath)
         self.configureCell(cell, withTeam: team)
         return cell
+        
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -140,9 +143,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         fetchRequest.fetchBatchSize = 20
         
         // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "name", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "rounds", ascending: true)
+        let sortDescriptor2 = NSSortDescriptor(key: "timestamp", ascending: true)
         
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.sortDescriptors = [sortDescriptor, sortDescriptor2]
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
@@ -193,6 +197,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.endUpdates()
+        
     }
     
     
